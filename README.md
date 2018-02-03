@@ -1,8 +1,6 @@
 # Sidekiq::Later
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sidekiq/later`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Informal asynchronous method dispatching backed by sidekiq. Like the `.delay` method, but instead of serializing an instance this is strictly class name and primary key dispatching with support for simple simple positional args.
 
 ## Installation
 
@@ -22,7 +20,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In `config/initializers/sidekiq_later.rb`
+
+```ruby
+require 'sidekiq_later'
+```
+
+In your application:
+
+```ruby
+class Listing < ActiveRecord::Base
+  def attach_photo_from_url(url)
+    # A thing that takes a while or can fail and wants retries.
+  end
+end
+
+listing = Listing.find(1)
+photo_url = "https://www.example.com/photo.jpg"
+
+# Run method on Sidekiq without making a worker
+listing.later.attach_photo_from_url photo_url
+```
 
 ## Development
 
