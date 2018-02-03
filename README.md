@@ -1,6 +1,6 @@
 # Sidekiq::Later
 
-Informal asynchronous method dispatching backed by sidekiq. Like the `.delay` method, but instead of serializing an instance this is strictly class name and primary key dispatching with support for simple simple positional args.
+Informal asynchronous method dispatching backed by sidekiq. Like the `.delay` method, but instead of serializing an instance to YAML in Redis, this is strictly class name and primary key dispatching and only supports simple simple positional args.
 
 ## Installation
 
