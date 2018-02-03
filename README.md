@@ -20,12 +20,6 @@ Or install it yourself as:
 
 ## Usage
 
-In `config/initializers/sidekiq_later.rb`
-
-```ruby
-require 'sidekiq_later'
-```
-
 In your application:
 
 ```ruby
