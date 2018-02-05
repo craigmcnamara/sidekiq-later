@@ -1,5 +1,7 @@
 # Sidekiq::Later
 
+[![Build Status](https://travis-ci.org/craigmcnamara/sidekiq-later.svg?branch=master)](https://travis-ci.org/craigmcnamara/sidekiq-later)
+
 Informal asynchronous method dispatching backed by sidekiq. Like the `.delay` method, but instead of serializing an instance to YAML in Redis, this is strictly class name and primary key dispatching and only supports simple simple positional args.
 
 ## Installation
