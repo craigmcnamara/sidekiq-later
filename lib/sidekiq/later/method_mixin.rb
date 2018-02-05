@@ -2,18 +2,17 @@ module Sidekiq
   module Later
     module MethodMixin
       class MethodProxy < BasicObject
-        attr_accessor :target_class, :id, :inline
+        attr_accessor :target, :inline
 
-        def initialize(klass, id, inline = false)
-          @target_class = klass
-          @target_id = id
+        def initialize(target, inline = false)
+          @target = target
           @inline = inline
         end
 
         def method_missing(name, *args, &block)
-          super unless target_class.new.respond_to?(name)
+          super unless target.respond_to?(name)
 
-          worker_args = [target_class.to_s, @target_id, name, *args]
+          worker_args = [target.class.to_s, target.id, name, *args]
 
           if inline
             Worker.new.perform *worker_args
@@ -28,7 +27,7 @@ module Sidekiq
       end
 
       def later(inline: false)
-        MethodProxy.new(self.class, self.id, inline)
+        MethodProxy.new(self, inline)
       end
     end
   end
